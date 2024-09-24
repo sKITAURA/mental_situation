@@ -11,14 +11,19 @@ import {
   FormControl,
   FormLabel,
   Input,
+  RadioGroup,
+  Stack,
+  Radio,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export const Modals = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleSend = () => {}; //TODO
-
-  const initialRef = useRef(null);
+  const [selectedOption, setSelectedOption] = useState("普通"); // 初期値を「普通」に設定
+  const [reason, setReason] = useState(""); // 理由
+  const [solution, setSolution] = useState(""); // 改善方法
+  const initialRef = useRef(null); // Input の ref
   const finalRef = useRef(null);
 
   return (
@@ -35,17 +40,41 @@ export const Modals = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
+          <ModalHeader>新規作成</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
+            <FormLabel fontSize={"large"}>状態の選択</FormLabel>
+            <RadioGroup
+              onChange={setSelectedOption}
+              value={selectedOption}
+              defaultValue="普通"
+            >
+              <Stack direction="column" pb={4}>
+                <Radio value="非常に良い">非常に良い</Radio>
+                <Radio value="良い">良い</Radio>
+                <Radio value="普通">普通</Radio>
+                <Radio value="悪い">悪い</Radio>
+                <Radio value="非常に悪い">非常に悪い</Radio>
+              </Stack>
+            </RadioGroup>
+
             <FormControl>
-              <FormLabel>First name</FormLabel>
-              <Input ref={initialRef} placeholder="First name" />
+              <FormLabel>メンタルが上下した理由</FormLabel>
+              <Input
+                ref={initialRef}
+                placeholder="理由を書く"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+              />
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Last name</FormLabel>
-              <Input placeholder="Last name" />
+              <FormLabel>改善方法</FormLabel>
+              <Input
+                placeholder="改善方法を書く"
+                value={solution}
+                onChange={(e) => setSolution(e.target.value)}
+              />
             </FormControl>
           </ModalBody>
 

@@ -14,10 +14,10 @@ export const Tables = () => {
     <>
       <TableContainer>
         <Table variant="striped" colorScheme="teal">
-          <TableCaption>Imperial to metric conversion factors</TableCaption>
+          <TableCaption></TableCaption>
           <Thead>
             <Tr>
-              <Th isNumeric>日付</Th>
+              <Th>日付</Th>
               <Th>メンタルの状態</Th>
               <Th>理由</Th>
               <Th>改善方法</Th>
@@ -26,32 +26,20 @@ export const Tables = () => {
           </Thead>
           <Tbody>
             <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-              <Td>25.4</Td>
+              <Td>2024/10/01</Td>
+              <Td>良い</Td>
+              <Td>タスクが多かった</Td>
+              <Td>何かをする</Td>
               <Td>
                 <Button colorScheme="blue" size="sm" onClilck="">
                   編集
                 </Button>
               </Td>
               <Td>
-                <Button colorScheme="red" size="sm" onClilck="">
+                <Button colorScheme="red" size="sm" onClilck="" ml={-5}>
                   削除
                 </Button>
               </Td>
-            </Tr>
-            <Tr>
-              <Td>feet</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-              <Td>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-              <Td>0.91444</Td>
             </Tr>
           </Tbody>
         </Table>
