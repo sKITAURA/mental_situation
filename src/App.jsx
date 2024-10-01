@@ -1,12 +1,10 @@
-import { Modals } from "./component/modal/index.jsx";
 import "./App.css";
-import { Tables } from "./component/table/index.jsx";
+import { Lists } from "./component/list/list.component.jsx";
 
 const App = () => {
   return (
     <>
-      <Modals />
-      <Tables />
+      <Lists />
     </>
   );
 };
