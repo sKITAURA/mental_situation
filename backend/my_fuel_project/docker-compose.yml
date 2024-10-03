@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    container_name: fuelphp-web
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    depends_on:
+      - db
+    networks:
+      - fuelphp-network
+
+  db:
+    image: mysql:8.0
+    container_name: fuelphp-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fuelphp
+      MYSQL_USER: fuelphp_user
+      MYSQL_PASSWORD: secret
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - fuelphp-network
+
+volumes:
+  db_data:
+
+networks:
+  fuelphp-network:
+    driver: bridge

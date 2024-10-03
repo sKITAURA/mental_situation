@@ -20,11 +20,18 @@
  */
 
 return array(
-	'default' => array(
-		'connection' => array(
-			'dsn'      => 'mysql:host=localhost;dbname=fuel_dev',
-			'username' => 'root',
-			'password' => 'root',
-		),
-	),
+    'default' => array(
+        'type'        => 'mysqli',
+        'connection'  => array(
+            'hostname'   => 'db',  // MySQLサービスの名前
+            'database'   => 'fuelphp',
+            'username'   => 'fuelphp_user',
+            'password'   => 'secret',
+            'persistent' => false,
+        ),
+        'charset'     => 'utf8',
+        'table_prefix' => '',
+        'enable_cache' => true,
+        'profiling'   => false,
+    ),
 );

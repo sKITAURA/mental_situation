@@ -1,4 +1,7 @@
 // table.component.tsx
+
+import PropTypes from "prop-types"; // PropTypes をインポート
+import axios from "axios"; // axios をインポート
 import {
   Table,
   Thead,
@@ -10,35 +13,15 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-// eslint-disable-next-line react/prop-types
-export const Tables = ({ onEdit }) => {
-  const initialData = [
-    {
-      id: 1,
-      date: "2024/10/01",
-      state: "良い",
-      reason: "タスクが多かった",
-      solution: "何かをする",
-    },
-    {
-      id: 2,
-      date: "2024/10/02",
-      state: "普通",
-      reason: "十分な休息を取った",
-      solution: "運動を増やす",
-    },
-  ];
-
+export const Tables = ({ onEdit, data, setData }) => {
   const handleDelete = async (id) => {
     try {
       console.log(`ID: ${id} を削除します`);
 
       // サーバーに削除リクエストを送信
-      // eslint-disable-next-line no-undef
       await axios.delete(`http://localhost:3000/items/${id}`);
 
       // フロントエンドの状態を更新して、削除したデータを反映
-      // eslint-disable-next-line no-undef
       setData((prevData) => prevData.filter((item) => item.id !== id));
     } catch (error) {
       console.error("削除に失敗しました", error);
@@ -59,7 +42,7 @@ export const Tables = ({ onEdit }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {initialData.map((item) => (
+          {data.map((item) => (
             <Tr key={item.id}>
               <Td>{item.date}</Td>
               <Td>{item.state}</Td>
@@ -69,7 +52,7 @@ export const Tables = ({ onEdit }) => {
                 <Button
                   colorScheme="blue"
                   size="sm"
-                  onClick={() => onEdit(item)} // 編集ボタンが押されたとき
+                  onClick={() => onEdit(item)}
                 >
                   編集
                 </Button>
@@ -89,6 +72,20 @@ export const Tables = ({ onEdit }) => {
       </Table>
     </TableContainer>
   );
+};
+
+Tables.propTypes = {
+  onEdit: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+      state: PropTypes.string.isRequired,
+      reason: PropTypes.string.isRequired,
+      solution: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  setData: PropTypes.func.isRequired,
 };
 
 export default Tables;
