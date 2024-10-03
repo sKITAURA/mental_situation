@@ -21,12 +21,12 @@
 
 return array(
     'default' => array(
-        'type'       => 'mysqli',   // MySQLiドライバを指定
+        'type'       => 'mysqli',
         'connection' => array(
-            'hostname'   => '127.0.0.1',  // DockerコンテナのMySQLホスト名
-            'database'   => 'fuelphp',    // 使用するデータベース名
-            'username'   => 'fuelphp_user', // データベースユーザー名
-            'password'   => 'secret',      // データベースパスワード
+            'hostname'   => 'my_fuel_project-db-1',  // MySQLコンテナ名を使用
+            'database'   => 'fuelphp',
+            'username'   => 'fuelphp_user',
+            'password'   => 'secret',
             'persistent' => false,
         ),
         'charset'    => 'utf8',
