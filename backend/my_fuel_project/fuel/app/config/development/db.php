@@ -21,17 +21,17 @@
 
 return array(
     'default' => array(
-        'type'        => 'mysqli',
-        'connection'  => array(
-            'hostname'   => 'db',  // MySQLサービスの名前
-            'database'   => 'fuelphp',
-            'username'   => 'fuelphp_user',
-            'password'   => 'secret',
+        'type'       => 'mysqli',   // MySQLiドライバを指定
+        'connection' => array(
+            'hostname'   => '127.0.0.1',  // DockerコンテナのMySQLホスト名
+            'database'   => 'fuelphp',    // 使用するデータベース名
+            'username'   => 'fuelphp_user', // データベースユーザー名
+            'password'   => 'secret',      // データベースパスワード
             'persistent' => false,
         ),
-        'charset'     => 'utf8',
+        'charset'    => 'utf8',
         'table_prefix' => '',
         'enable_cache' => true,
-        'profiling'   => false,
+        'profiling'    => false,
     ),
 );

@@ -7,9 +7,6 @@ services:
       - "8000:80"
     volumes:
       - .:/var/www/html
-    container_name: fuelphp-web
-    environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html/public
     depends_on:
       - db
     networks:
@@ -17,19 +14,27 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: fuelphp-db
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: fuelphp
       MYSQL_USER: fuelphp_user
       MYSQL_PASSWORD: secret
-    volumes:
-      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
     networks:
       - fuelphp-network
 
-volumes:
-  db_data:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - fuelphp-network
 
 networks:
   fuelphp-network:
