@@ -142,7 +142,7 @@ return array(
 	 *  The default language.
 	 */
 
-	// 'language' => 'en',
+	'language' => 'en',
 
 	/**
 	 *  Fallback language when file isn't available for default language.
@@ -153,7 +153,7 @@ return array(
 	/**
 	 *  PHP set_locale() setting. Use null to not set.
 	 */
-	 'locale' => 'en_US.utf8',
+	 'locale' => '',
 
 	/**
 	 * -------------------------------------------------------------------------

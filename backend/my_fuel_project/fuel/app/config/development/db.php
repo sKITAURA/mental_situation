@@ -23,10 +23,10 @@ return array(
     'default' => array(
         'type'       => 'mysqli',
         'connection' => array(
-            'hostname'   => 'my_fuel_project-db-1',  // MySQLコンテナ名を使用
-            'database'   => 'fuelphp',
-            'username'   => 'fuelphp_user',
-            'password'   => 'secret',
+            'hostname'   => 'localhost:3308',  // MySQLコンテナ名を使用
+            'database'   => 'my_fuel_project',
+            'username'   => 'root',
+            'password'   => 'root',
             'persistent' => false,
         ),
         'charset'    => 'utf8',

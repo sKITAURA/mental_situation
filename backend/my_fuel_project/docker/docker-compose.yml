@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8081:80"
+    volumes:
+      - ../:/var/www/html/my_fuel_project
+    networks:
+      - fuelphp-network
+
+  db:
+    build:
+      context: ../
+      dockerfile: docker/db/Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fuelphp
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3308:3306"
+    networks:
+      - fuelphp-network
+
+networks:
+  fuelphp-network:
+    driver: bridge
