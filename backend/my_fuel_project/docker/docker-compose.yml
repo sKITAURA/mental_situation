@@ -6,7 +6,7 @@ services:
       context: ../
       dockerfile: docker/Dockerfile
     ports:
-      - "8081:80"
+      - "81:80"
     volumes:
       - ../:/var/www/html/my_fuel_project
     networks:

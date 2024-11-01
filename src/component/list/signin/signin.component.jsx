@@ -14,7 +14,7 @@ export const SignInForm = () => {
     try {
       // axiosを使用してAPIリクエストで認証を確認する
       const response = await axios.post(
-        "http://localhost:8081/my_fuel_project/public/api/register",
+        "http://localhost:81/my_fuel_project/public/api/",
 
         // "http://localhost:8081/Applications/XAMPP/htdocs/my_fuel_project/fuel/app/classes/controller/api.php",
         {

@@ -19,7 +19,7 @@ export const Tables = ({ onEdit, data, setData }) => {
       console.log(`ID: ${id} を削除します`);
 
       // サーバーに削除リクエストを送信
-      await axios.delete(`http://localhost:3000/items/${id}`);
+      await axios.delete(`http://localhost:81/items/${id}`);
 
       // フロントエンドの状態を更新して、削除したデータを反映
       setData((prevData) => prevData.filter((item) => item.id !== id));

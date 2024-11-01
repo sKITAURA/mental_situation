@@ -21,10 +21,9 @@
 
 return array(
     'default' => array(
-        'type'       => 'mysqli',
+        'type'       => 'pdo',
         'connection' => array(
-            'hostname'   => 'localhost:3308',  // MySQLコンテナ名を使用
-            'database'   => 'my_fuel_project',
+            'dsn' => "mysql:host=db-1:3308;dbname=mental_situation",
             'username'   => 'root',
             'password'   => 'root',
             'persistent' => false,

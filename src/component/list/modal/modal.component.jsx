@@ -59,13 +59,13 @@ const Modals = ({ isOpen, onClose, isEditMode, initialData }) => {
         // 編集の場合はPUTまたはPATCHリクエスト
         const response = await axios.put(
           // eslint-disable-next-line no-undef
-          `http://localhost:3000/items/${receiveData.id}`,
+          `http://localhost:81/items/${receiveData.id}`,
           data
         );
         console.log("更新成功", response.data);
       } else {
         // 新規作成の場合はPOSTリクエスト
-        const response = await axios.post("http://localhost:3000/items", data);
+        const response = await axios.post("http://localhost:81/items", data);
         console.log("作成成功", response.data);
       }
     } catch (error) {

@@ -1,29 +1,28 @@
-// lists.component.jsx
 import { useDisclosure, Button } from "@chakra-ui/react";
 import Modals from "./modal/modal.component";
 import Tables from "./table/table.component";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios"; // axiosを使用してリクエストを行う
 
 export const Lists = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentItem, setCurrentItem] = useState(null); // 編集対象のデータ
   const [isEditMode, setIsEditMode] = useState(false); // 編集モードかどうか
-  const [data, setData] = useState([
-    {
-      id: 1,
-      date: "2024/10/01",
-      state: "良い",
-      reason: "タスクが多かった",
-      solution: "何かをする",
-    },
-    {
-      id: 2,
-      date: "2024/10/02",
-      state: "普通",
-      reason: "十分な休息を取った",
-      solution: "運動を増やす",
-    },
-  ]);
+  const [data, setData] = useState([]); // 初期値を空配列に変更
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // FuelPHPサーバーからデータをGETリクエストで取得
+        const response = await axios.get("http://localhost:81/api/get_data"); // FuelPHPのAPIエンドポイントに合わせてURLを設定
+        setData(response.data); // 取得したデータをステートにセット
+      } catch (error) {
+        console.error("データの取得に失敗しました:", error);
+      }
+    };
+
+    fetchData(); // データの取得関数を呼び出し
+  }, []); // 初回レンダー時のみ実行するために空の依存配列を設定
 
   // 新規作成ボタンが押されたとき
   const handleCreate = () => {

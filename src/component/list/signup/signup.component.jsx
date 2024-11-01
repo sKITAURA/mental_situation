@@ -14,7 +14,7 @@ export const SignUpForm = () => {
     try {
       // APIにPOSTリクエストを送信して、アカウントを作成
       const response = await axios.post(
-        "http://localhost:8081/my_fuel_project/public/api/register",
+        "http://localhost:81/my_fuel_project/public/api/register",
 
         // "http://localhost:8081/Applications/XAMPP/htdocs/my_fuel_project/fuel/app/classes/controller/api.php",
         {
