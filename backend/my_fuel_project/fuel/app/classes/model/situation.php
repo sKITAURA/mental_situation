@@ -20,7 +20,7 @@ class Model_Situation extends Model
         $situations = DB::select()
             ->from('situation-table')           
             ->execute()
-            ->as_array(p);
+            ->as_array();
 
 
         return $situations;

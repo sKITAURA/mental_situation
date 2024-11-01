@@ -21,9 +21,10 @@
 
 return array(
     'default' => array(
-        'type'       => 'pdo',
+        'type'       => 'mysqli',
         'connection' => array(
-            'dsn' => "mysql:host=db-1:3308;dbname=mental_situation",
+            'hostname'   => 'docker-db-1',  // MySQLコンテナ名を使用
+            'database'   => 'mental_situation',
             'username'   => 'root',
             'password'   => 'root',
             'persistent' => false,
