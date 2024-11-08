@@ -14,14 +14,19 @@ import {
 } from "@chakra-ui/react";
 
 export const Tables = ({ onEdit, data, setData }) => {
+  console.log(data);
   const handleDelete = async (id) => {
+    console.log("削除リクエストを送信します"); // デバッグログ追加
     try {
-      console.log(`ID: ${id} を削除します`);
-
-      // サーバーに削除リクエストを送信
-      await axios.delete(`http://localhost:81/items/${id}`);
-
-      // フロントエンドの状態を更新して、削除したデータを反映
+      await axios.post(
+        `http://localhost:81/api/delete_mental_data/${id}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setData((prevData) => prevData.filter((item) => item.id !== id));
     } catch (error) {
       console.error("削除に失敗しました", error);

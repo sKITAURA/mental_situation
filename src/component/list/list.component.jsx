@@ -14,7 +14,7 @@ export const Lists = () => {
     const fetchData = async () => {
       try {
         // FuelPHPサーバーからデータをGETリクエストで取得
-        const response = await axios.get("http://localhost:81/api/get_data"); // FuelPHPのAPIエンドポイントに合わせてURLを設定
+        const response = await axios.get("http://localhost:81/api/mental_data"); // FuelPHPのAPIエンドポイントに合わせてURLを設定
         setData(response.data); // 取得したデータをステートにセット
       } catch (error) {
         console.error("データの取得に失敗しました:", error);

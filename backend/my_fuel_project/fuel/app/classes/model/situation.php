@@ -25,6 +25,27 @@ class Model_Situation extends Model
 
         return $situations;
     }
+    public static function update_situation_data($id)
+    {
+        // IDに基づいて特定のレコードを削除
+        $result = DB::update('situation-table')//あとで変える
+            ->where('id', '=', $id)
+            ->execute();
+
+        return $result; // 削除した件数が返される
+    }
+    public static function delete_situation_data($id)
+    {
+        // IDに基づいて特定のレコードを削除
+        $result = DB::delete('situation-table')
+            ->where('id', '=', $id)
+            ->execute();
+
+        return $result; // 削除した件数が返される
+    }
+
+    
+
 
     /**
      * 新しい状況データを作成するメソッド
