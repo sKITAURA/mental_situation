@@ -1,4 +1,3 @@
-// modal.component.tsx
 import {
   Modal,
   ModalOverlay,
@@ -55,18 +54,19 @@ const Modals = ({ isOpen, onClose, isEditMode, initialData }) => {
     };
 
     try {
-      if (isEditMode) {
-        // 編集の場合はPUTまたはPATCHリクエスト
+      // eslint-disable-next-line react/prop-types
+      if (isEditMode && initialData && initialData.id) {
+        // 編集の場合はPUTリクエスト
         const response = await axios.post(
-          // eslint-disable-next-line no-undef
-          `http://localhost:81/api/mental_data/${receiveData.id}`,
+          // eslint-disable-next-line react/prop-types
+          `http://localhost:81/api/update_mental_data/${initialData.id}`,
           data
         );
         console.log("更新成功", response.data);
       } else {
         // 新規作成の場合はPOSTリクエスト
         const response = await axios.post(
-          "http://localhost:81/api/mental_data/",
+          "http://localhost:81/api/new_mental_data/",
           data
         );
         console.log("作成成功", response.data);

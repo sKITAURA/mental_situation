@@ -9,22 +9,18 @@ class Controller_Api extends Controller_Rest
 
 public function before()
 {
-    parent::before();
+      parent::before();
+     
+      header('Access-Control-Allow-Origin: http://localhost:5174');
+      header('Access-Control-Allow-Methods: PUT, POST, GET');
+      header('Access-Control-Allow-Headers: Content-Type');
+      header('Access-Control-Allow-Credentials: true');
+      header('X-Frame-Options: DENY');
 
-    // CORS ヘッダーの設定
-    $this->response->set_header('Access-Control-Allow-Origin', 'http://localhost:5174');
-    $this->response->set_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    $this->response->set_header('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Authorization');
-    $this->response->set_header('Access-Control-Allow-Credentials', 'true'); // 追加
+      if (Input::method() == 'OPTIONS') {
+          exit;
+      }
 
-
-    // プリフライトリクエストへの対応
-    if (Input::method() === 'OPTIONS') {
-        $this->response->set_status(200);
-        // レスポンスを送信して終了
-        echo $this->response->body();
-        exit;
-    }
 }
 
     public function get_mental_data(){
@@ -33,11 +29,17 @@ public function before()
         return $data;
     }
     public function post_delete_mental_data($id){
-        $data = Model_Situation::update_situation_data($id);
+        $data = Model_Situation::delete_situation_data($id);
         return $this->response($data);
     }
-    public function post_update_mental_data($id){
-        $data = Model_Situation::delete_situation_data($id);
-        return $data;
-}
+    public function post_update_mental_data($id, $new_data){
+        $data = Model_Situation::update_situation_data($id,$new_data);
+        return $this->response($data);
+    }
+
+    public function post_new_mental_data($new_data){
+        $data = Model_Situation::new_mental_data($new_data);
+        return $this->response($data);
+    }
+    
 }
