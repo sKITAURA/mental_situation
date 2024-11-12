@@ -66,7 +66,7 @@ const Modals = ({ isOpen, onClose, isEditMode, initialData }) => {
       } else {
         // 新規作成の場合はPOSTリクエスト
         const response = await axios.post(
-          "http://localhost:81/api/new_mental_data/",
+          "http://localhost:81/api/new_situation_data/",
           data
         );
         console.log("作成成功", response.data);

@@ -1,7 +1,5 @@
-// table.component.tsx
-
-import PropTypes from "prop-types"; // PropTypes をインポート
-import axios from "axios"; // axios をインポート
+import PropTypes from "prop-types";
+import axios from "axios";
 import {
   Table,
   Thead,
@@ -16,7 +14,7 @@ import {
 export const Tables = ({ onEdit, data, setData }) => {
   console.log(data);
   const handleDelete = async (id) => {
-    console.log("削除リクエストを送信します"); // デバッグログ追加
+    console.log("削除リクエストを送信します");
     try {
       await axios.post(
         `http://localhost:81/api/delete_mental_data/${id}`,
@@ -38,7 +36,7 @@ export const Tables = ({ onEdit, data, setData }) => {
       <Table variant="striped" colorScheme="teal">
         <Thead>
           <Tr>
-            <Th>日付</Th>
+            <Th>更新日時</Th>
             <Th>メンタルの状態</Th>
             <Th>理由</Th>
             <Th>改善方法</Th>
@@ -49,7 +47,7 @@ export const Tables = ({ onEdit, data, setData }) => {
         <Tbody>
           {data.map((item) => (
             <Tr key={item.id}>
-              <Td>{item.date}</Td>
+              <Td>{item.updated_at}</Td>
               <Td>{item.state}</Td>
               <Td>{item.reason}</Td>
               <Td>{item.solution}</Td>
@@ -84,7 +82,7 @@ Tables.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      date: PropTypes.string.isRequired,
+      updated_at: PropTypes.string.isRequired, // updated_at に変更
       state: PropTypes.string.isRequired,
       reason: PropTypes.string.isRequired,
       solution: PropTypes.string.isRequired,

@@ -12,7 +12,7 @@ public function before()
       parent::before();
      
       header('Access-Control-Allow-Origin: http://localhost:5174');
-      header('Access-Control-Allow-Methods: PUT, POST, GET');
+      header('Access-Control-Allow-Methods: POST, GET');
       header('Access-Control-Allow-Headers: Content-Type');
       header('Access-Control-Allow-Credentials: true');
       header('X-Frame-Options: DENY');
@@ -32,14 +32,21 @@ public function before()
         $data = Model_Situation::delete_situation_data($id);
         return $this->response($data);
     }
-    public function post_update_mental_data($id, $new_data){
-        $data = Model_Situation::update_situation_data($id,$new_data);
-        return $this->response($data);
-    }
+    public function post_update_mental_data($id)
+{
+    // リクエストボディのJSONデータを取得
+    $new_data = Input::json(); // POSTされたデータを取得
+    $data = Model_Situation::update_situation_data($id, $new_data);
+    return $this->response($data);
+}
 
-    public function post_new_mental_data($new_data){
-        $data = Model_Situation::new_mental_data($new_data);
-        return $this->response($data);
-    }
+public function post_new_mental_data()
+{
+    // リクエストボディのJSONデータを取得
+    $new_data = Input::json(); // POSTされたデータを取得
+    $data = Model_Situation::new_situation_data($new_data);
+    return $this->response($data);
+}
+
     
 }

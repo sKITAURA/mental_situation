@@ -10,10 +10,16 @@
  * @link       https://fuelphp.com
  */
 
-return array(
-	Router::add('situation/get', 'situation/get_situation_data'),
-	Router::add('situation/create', 'situation/post_create'),
-	Router::add('situation/edit/:id', 'situation/post_edit'),
-	Router::add('situation/delete/:id', 'situation/delete_situation'),
-
+ return array(
+    Router::add('situation/get', 'situation/get_situation_data'),          // GETリクエスト
+    Router::add('situation/create', 'situation/post_new_data'),              // POSTリクエスト (新規作成)
+    Router::add('situation/edit/:id', 'situation/post_update_data'),               // PUTリクエスト (編集)
+    Router::add('situation/delete/:id', 'situation/delete_situation'),     // DELETEリクエスト (削除)
 );
+
+// return array(
+// 	Router::add('situation/get', 'situation/get_situation_data'),
+// 	Router::add('situation/create', 'situation/post_create'),
+// 	Router::add('situation/edit/:id', 'situation/post_edit'),
+// 	Router::add('situation/delete/:id', 'situation/delete_situation'),
+// );

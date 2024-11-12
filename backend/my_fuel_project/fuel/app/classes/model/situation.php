@@ -1,13 +1,15 @@
 <?php
 
 use Fuel\Core\Model_Crud;
+use Fuel\Core\DB;
 
-class Model_Situation extends Model
+class Model_Situation extends Model_Crud
 {
     // 対応するテーブル名を指定
+    protected static $_table_name = 'situation-table';
 
     // 主キーのカラム名を指定（通常は'id'ですが、異なる場合は変更）
-    protected static $_primary_key = ['id']; 
+    protected static $_primary_key = ['id'];
 
     /**
      * 全ての状況データを取得するメソッド
@@ -16,49 +18,54 @@ class Model_Situation extends Model
      */
     public static function get_situation_data()
     {
-        // FuelPHPのfindメソッドを使用して、全てのレコードを取得
+        // FuelPHPのDBクラスのselectメソッドを使用して全てのレコードを取得
         $situations = DB::select()
-            ->from('situation-table')           
+            ->from(self::$_table_name)           
             ->execute()
             ->as_array();
 
-
         return $situations;
     }
+
+    /**
+     * 状況データを更新するメソッド
+     * 
+     * @param int $id 更新対象のレコードID
+     * @param array $new_data 更新するデータの配列
+     * @return int 更新された行数
+     */
     public static function update_situation_data($id, $new_data)
-{
-    // デバッグ出力
-    error_log("Received new_data: " . print_r($new_data, true)); // エラーログに出力
-    var_dump($new_data); // ブラウザで確認
-
-    // データベースの「situation-table」に対する更新クエリを実行
-    $result = DB::update('situation-table')
-        ->set([
-            'id' => $id,
-            'date' => $new_data['date'],
-            'situation' => $new_data['situation'],
-            'reason' => $new_data['reason'],
-            'solution' => $new_data['solution']
-        ])
-        ->where('id', '=', $id)
-        ->execute();
-
-    // 結果を返す
-    return $result;
-}
-
-    public static function delete_situation_data($id)
     {
-        // IDに基づいて特定のレコードを削除
-        $result = DB::delete('situation-table')
+        // デバッグ出力
+        error_log("Received new_data: " . print_r($new_data, true));
+
+        // データベースの「situation-table」に対する更新クエリを実行
+        $result = DB::update(self::$_table_name)
+            ->set([
+                'state' => $new_data['state'],
+                'reason' => $new_data['reason'],
+                'solution' => $new_data['solution']
+            ])
             ->where('id', '=', $id)
             ->execute();
 
-        return $result; // 削除した件数が返される
+        return $result;
     }
 
-    
+    /**
+     * 特定の状況データを削除するメソッド
+     * 
+     * @param int $id 削除対象のレコードID
+     * @return int 削除された行数
+     */
+    public static function delete_situation_data($id)
+    {
+        $result = DB::delete(self::$_table_name)
+            ->where('id', '=', $id)
+            ->execute();
 
+        return $result;
+    }
 
     /**
      * 新しい状況データを作成するメソッド
@@ -66,16 +73,15 @@ class Model_Situation extends Model
      * @param array $data 登録するデータの配列
      * @return Model_Situation|false 作成されたインスタンスまたは失敗時はfalse
      */
-    public static function new_mental_data($data)
+    public static function new_situation_data($data)
     {
+        // 新規データの生成と保存
         $new_mental_data = self::forge([
-            'date' => $data['date'],
-            'situation' => $data['situation'],
+            'state' => $data['state'],
             'reason' => $data['reason'],
             'solution' => $data['solution'],
         ]);
 
-        // 保存が成功した場合にインスタンスを返す
         if ($new_mental_data->save()) {
             return $new_mental_data;
         } else {
