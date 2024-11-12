@@ -12,7 +12,7 @@
 
  return array(
     Router::add('situation/get', 'situation/get_situation_data'),          // GETリクエスト
-    Router::add('situation/create', 'situation/post_new_data'),              // POSTリクエスト (新規作成)
+    Router::add('situation/create', 'situation/post_new_situation_data'),              // POSTリクエスト (新規作成)
     Router::add('situation/edit/:id', 'situation/post_update_data'),               // PUTリクエスト (編集)
     Router::add('situation/delete/:id', 'situation/delete_situation'),     // DELETEリクエスト (削除)
 );

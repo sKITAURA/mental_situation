@@ -18,18 +18,16 @@ import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 
 // eslint-disable-next-line react/prop-types
-const Modals = ({ isOpen, onClose, isEditMode, initialData }) => {
-  const [selectedOption, setSelectedOption] = useState("普通"); // 初期値を「普通」に設定
-  const [reason, setReason] = useState(""); // 理由
-  const [solution, setSolution] = useState(""); // 改善方法
-  const initialRef = useRef(null); // Input の ref
+const Modals = ({ isOpen, onClose, isEditMode, initialData, onDataUpdate }) => {
+  const [selectedOption, setSelectedOption] = useState("普通");
+  const [reason, setReason] = useState("");
+  const [solution, setSolution] = useState("");
+  const initialRef = useRef(null);
   const finalRef = useRef(null);
 
-  // モーダルが開いたときに初期値をセット
   useEffect(() => {
     if (isOpen) {
       if (isEditMode && initialData) {
-        // 編集モードの場合、初期値をセット
         // eslint-disable-next-line react/prop-types
         setSelectedOption(initialData.state);
         // eslint-disable-next-line react/prop-types
@@ -37,7 +35,6 @@ const Modals = ({ isOpen, onClose, isEditMode, initialData }) => {
         // eslint-disable-next-line react/prop-types
         setSolution(initialData.solution);
       } else {
-        // 新規作成の場合、フィールドをリセット
         setSelectedOption("普通");
         setReason("");
         setSolution("");
@@ -46,36 +43,36 @@ const Modals = ({ isOpen, onClose, isEditMode, initialData }) => {
   }, [isOpen, isEditMode, initialData]);
 
   const handleSend = async () => {
-    // 送信処理
     const data = {
-      state: selectedOption,
+      situation: selectedOption,
       reason: reason,
       solution: solution,
     };
 
     try {
+      let response;
       // eslint-disable-next-line react/prop-types
       if (isEditMode && initialData && initialData.id) {
-        // 編集の場合はPUTリクエスト
-        const response = await axios.post(
+        response = await axios.put(
           // eslint-disable-next-line react/prop-types
           `http://localhost:81/api/update_mental_data/${initialData.id}`,
           data
         );
         console.log("更新成功", response.data);
       } else {
-        // 新規作成の場合はPOSTリクエスト
-        const response = await axios.post(
-          "http://localhost:81/api/new_situation_data/",
+        response = await axios.post(
+          "http://localhost:81/api/new_mental_data/",
           data
         );
         console.log("作成成功", response.data);
       }
+
+      // 更新または作成が成功した場合に新しいデータを反映
+      onDataUpdate(response.data);
+      onClose();
     } catch (error) {
       console.log("送信失敗", error);
     }
-
-    onClose(); // モーダルを閉じる
   };
 
   return (
