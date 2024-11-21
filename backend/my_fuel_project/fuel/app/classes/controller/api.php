@@ -12,7 +12,7 @@ class Controller_Api extends Controller_Rest
         parent::before();
         
         header('Access-Control-Allow-Origin: http://localhost:5174');
-        header('Access-Control-Allow-Methods: POST, GET');
+        header('Access-Control-Allow-Methods: PUT,POST, GET');
         header('Access-Control-Allow-Headers: Content-Type');
         header('Access-Control-Allow-Credentials: true');
         header('X-Frame-Options: DENY');
@@ -45,6 +45,7 @@ class Controller_Api extends Controller_Rest
         // リクエストボディのJSONデータを取得
         $new_data = Input::json(); // POSTされたデータを取得
         $data = Model_Situation::new_situation_data($new_data);
+        var_dump($data);
         return $this->response($data);
     }
 

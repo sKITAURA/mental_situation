@@ -1,9 +1,7 @@
 <?php
 
-use Fuel\Core\Model_Crud;
-use Fuel\Core\DB;
 
-class Model_Situation extends Model_Crud
+class Model_Situation extends \Model
 {
     // 対応するテーブル名を指定
     protected static $_table_name = 'situation-table';
@@ -40,7 +38,7 @@ class Model_Situation extends Model_Crud
         error_log("Received new_data: " . print_r($new_data, true));
 
         // データベースの「situation-table」に対する更新クエリを実行
-        $result = DB::update(self::$_table_name)
+        $result = \DB::update(self::$_table_name)
             ->set([
                 'state' => $new_data['state'],
                 'reason' => $new_data['reason'],
@@ -60,7 +58,7 @@ class Model_Situation extends Model_Crud
      */
     public static function delete_situation_data($id)
     {
-        $result = DB::delete(self::$_table_name)
+        $result = \DB::delete(self::$_table_name)
             ->where('id', '=', $id)
             ->execute();
 
@@ -76,14 +74,20 @@ class Model_Situation extends Model_Crud
     public static function new_situation_data($data)
     {
         // 新規データの生成と保存
-        $new_mental_data = self::forge([
+        $result = \DB::insert(self::$_table_name)->set([
             'state' => $data['state'],
             'reason' => $data['reason'],
             'solution' => $data['solution'],
-        ]);
-
-        if ($new_mental_data->save()) {
-            return $new_mental_data;
+        ])
+        ->execute();
+        
+        if ($result) {
+            $new_data = \DB::select()
+            ->from(self::$_table_name)
+            ->where('id', '=', $result[0])
+            ->execute()
+            ->current();
+            return $new_data;
         } else {
             return false;
         }

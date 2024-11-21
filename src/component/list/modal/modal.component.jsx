@@ -44,7 +44,7 @@ const Modals = ({ isOpen, onClose, isEditMode, initialData, onDataUpdate }) => {
 
   const handleSend = async () => {
     const data = {
-      situation: selectedOption,
+      state: selectedOption,
       reason: reason,
       solution: solution,
     };
@@ -53,7 +53,7 @@ const Modals = ({ isOpen, onClose, isEditMode, initialData, onDataUpdate }) => {
       let response;
       // eslint-disable-next-line react/prop-types
       if (isEditMode && initialData && initialData.id) {
-        response = await axios.put(
+        response = await axios.post(
           // eslint-disable-next-line react/prop-types
           `http://localhost:81/api/update_mental_data/${initialData.id}`,
           data
